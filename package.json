@@ -1,0 +1,21 @@
+{
+  "name": "shared-board",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A kanban board shared by a person (web page) and an AI agent (CLI).",
+  "bin": {
+    "board": "src/cli/main.ts"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/server/main.ts",
+    "check": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  }
+}

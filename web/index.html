@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shared Board</title>
+  <link rel="stylesheet" href="/web/style.css">
+  <script type="module" src="/web/app.ts"></script>
+</head>
+<body>
+  <header class="top">
+    <h1>Shared Board</h1>
+    <p class="legend"><span class="key you">you</span><span class="key agent">agent</span></p>
+    <span id="status" class="status" data-live="false" aria-live="polite">connecting</span>
+    <button id="theme" type="button" aria-label="Toggle light or dark theme">theme</button>
+  </header>
+  <main id="board" class="board"></main>
+  <p id="notice" class="notice" role="status" hidden></p>
+</body>
+</html>

@@ -1,0 +1,3 @@
+#!/bin/sh
+# The board CLI. Put this directory on PATH to call it as `board`.
+exec node "$(dirname "$(readlink -f "$0")")/../src/cli/main.ts" "$@"

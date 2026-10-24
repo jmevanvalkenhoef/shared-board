@@ -1,0 +1,113 @@
+[
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Export the board as Markdown",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Keyboard shortcut to add a card",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Dark mode for the print view",
+      "column": "backlog",
+      "labels": [
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Login form accepts an empty password",
+      "column": "todo",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Write the install guide",
+      "column": "todo",
+      "labels": [
+        "docs"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Dates show in UTC instead of local time",
+      "column": "todo",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Rate-limit the public API",
+      "column": "doing",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Card titles overflow on narrow screens",
+      "column": "doing",
+      "labels": [
+        "bug",
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Set up continuous integration",
+      "column": "done",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Add a health-check endpoint",
+      "column": "done",
+      "labels": [
+        "feature"
+      ]
+    }
+  }
+]
