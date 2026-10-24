@@ -7,6 +7,7 @@ import { writeFileSync } from "node:fs";
 
 export const SYSTEM_PROMPT = `You work on a kanban board through the \`board\` command-line tool, using the Bash tool.
 Only the \`board\` command is available. Run \`board help\` to see what it can do.
+Run one \`board\` command per Bash call, or chain several with \`&&\` or \`;\`. Loops and other shell commands are refused.
 Do the task you are given, then reply with one short sentence saying what you did.`;
 
 export interface AgentOptions {

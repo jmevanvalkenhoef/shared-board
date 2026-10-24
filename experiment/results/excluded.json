@@ -1,0 +1,6 @@
+{
+  "excluded_batches": {
+    "full-2026-10-24T21:34": "The permission rule refused shell loops (for ... do board ...; done), which the system prompt did not mention. 5 runs failed for that reason alone. The prompt now says loops are refused; the round was run again with the new prompt.",
+    "pilot": "Smaller design (two models, two CLI variants, 12 tasks) before the large-board tasks were added. Records have no batch field."
+  }
+}
