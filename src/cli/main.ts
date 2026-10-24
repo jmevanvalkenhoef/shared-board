@@ -1,6 +1,6 @@
 // The board CLI: the agent's way in. Every change it makes is recorded as the
 // agent's, unless BOARD_ACTOR says otherwise.
-//   BOARD_URL (http://localhost:4321)  BOARD_ACTOR (agent)
+//   BOARD_URL (http://localhost:4321)  BOARD_ACTOR (agent)  BOARD_STYLE (plain | agent)
 // Exit codes: 0 ok, 1 the board refused the command, 2 usage error, 3 server unreachable.
 
 import { parseArgs } from "node:util";
@@ -9,11 +9,12 @@ import type { Actor, ColumnId } from "../domain/board.ts";
 import type { Command } from "../domain/commands.ts";
 import { BoardClient, RequestFailed, Unreachable } from "./client.ts";
 import type { Style } from "./style.ts";
+import { agent } from "./styles/agent.ts";
 import { plain } from "./styles/plain.ts";
 
 class UsageError extends Error {}
 
-const style: Style = plain;
+const style: Style = process.env.BOARD_STYLE === "agent" ? agent : plain;
 
 async function main(argv: string[]): Promise<number> {
   const client = new BoardClient(process.env.BOARD_URL ?? "http://localhost:4321", actorFromEnv());

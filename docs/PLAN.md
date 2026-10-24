@@ -22,12 +22,13 @@ Two factors, crossed:
 The two CLIs have the same commands. They differ in what they print:
 
 - **plain**: terse text tables, bare errors (`error: not found`), minimal `--help`.
-- **agent-friendly**: errors that say what went wrong and what exists
-  (`no card 99. Cards in "Todo": 12 "Fix login", 14 "Write docs"`), `--json`
-  output, `--help` with examples.
+- **agent-friendly**: help with the exact rules and examples (positions count
+  from 1, `label` replaces all labels, column ids next to their names), results
+  that say what changed (`labels of #5 are now: urgent`), and errors that say
+  what to do next (`there is no card #42. Run "board show" ...`).
 
-If a later round has budget, the agent-friendly side can be split into its
-parts (errors, JSON, examples) to see which part matters.
+Both are plain text. If a later round has budget, the agent-friendly side can
+be split into its parts (help, results, errors) to see which part matters.
 
 ## One run
 
@@ -40,8 +41,12 @@ parts (errors, JSON, examples) to see which part matters.
    state. Success is decided by a script, not by a person or a model.
 5. Record: success, commands used, errors hit, turns, tokens, time.
 
-About 12 tasks, from easy to hard, written in `tasks/*.toml`, each with its
-expected-state checks.
+Twelve tasks in `experiment/tasks.ts`, from easy (move the bugs in Todo) to
+hard (a card that doesn't exist, a dependency only written in a description,
+renaming a label on every card that has it). All start from
+`seeds/experiment.json`. Each has a reference solution, and
+`experiment/test-tasks.ts` checks that the solution passes and doing nothing
+fails.
 
 ## The Bayesian model
 
@@ -104,8 +109,9 @@ board CLI (agent) ───────────┘
 2. **Harness.** Seeded reset, one headless agent run, grader, run log. Done
    when one task runs end to end and is graded. *Done: first run passed with
    Haiku in 9 s and about 12k tokens; a non-board command is refused.*
-3. **Variants and tasks.** Both CLI styles, about 12 tasks with checks. Pilot
-   of about 20 runs to measure tokens; calibrate the budget with Joost.
+3. **Variants and tasks.** Both CLI styles, 12 tasks with checks. Pilot of 24
+   runs (each task twice, opposite model and style) to measure tokens;
+   calibrate the budget with Joost.
 4. **Experiment.** Adaptive batches, each under 30 minutes, each approved.
 5. **Model and write-up.** PyMC model, interactive write-up in the FIPS Lab
    style (same theme), with data tables and the model's limits.

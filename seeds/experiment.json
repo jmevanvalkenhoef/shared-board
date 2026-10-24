@@ -1,0 +1,193 @@
+[
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Export the board as Markdown",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Keyboard shortcut to add a card",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Dark mode for the print view",
+      "column": "backlog",
+      "labels": [
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Search cards by title",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Login form accepts an empty password",
+      "column": "todo",
+      "labels": [
+        "bug",
+        "security"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Write the install guide",
+      "column": "todo",
+      "labels": [
+        "docs"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Dates show in UTC instead of local time",
+      "column": "todo",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Login page loads slowly on mobile",
+      "column": "todo",
+      "labels": [
+        "bug",
+        "performance"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Rate-limit the public API",
+      "column": "doing",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Add request logging",
+      "column": "doing",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Card titles and labels overflow on narrow screens",
+      "column": "doing",
+      "labels": [
+        "bug",
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Set up continuous integration",
+      "column": "done",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Add a health-check endpoint",
+      "column": "done",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Fix login redirect loop",
+      "column": "done",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Old login page",
+      "column": "done",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 5,
+      "description": "Reported by Sam. Blocks the release."
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 9,
+      "description": "Can only ship after the request logging card is done."
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "archive",
+      "card": 15
+    }
+  }
+]
