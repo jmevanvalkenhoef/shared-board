@@ -9,11 +9,13 @@ import { join } from "node:path";
 import type { Board, Card } from "../src/domain/board.ts";
 import { parseSeed } from "../src/server/board-service.ts";
 import type { SeedStep } from "../src/server/board-service.ts";
-import { addedCard, archived, inColumn, labels, order, unchangedExcept } from "./checks.ts";
+import { addedCard, archived, inColumn, labels, order, sameText, unchangedExcept } from "./checks.ts";
 
 export interface Task {
   id: string;
   level: "easy" | "medium" | "hard" | "large";
+  /** Written after the main run, for the prediction test; never used to design a CLI. */
+  holdout?: boolean;
   prompt: string;
   seed: SeedStep[];
   check(before: Board, after: Board): string[];
@@ -200,6 +202,62 @@ const SPECS: Spec[] = [
       return [...inColumn(a, blocked, "todo"), ...unchangedExcept(b, a, blocked)];
     },
     solution: [["move", "26", "todo"], ["move", "28", "todo"]],
+  },  {
+    id: "write-description",
+    level: "easy",
+    holdout: true,
+    prompt: 'Give card #6 the description "Covers Linux and macOS."',
+    check: (b, a) => [
+      ...(sameText(a.cards[6]!.description, "Covers Linux and macOS.") ? [] : [`#6 has description "${a.cards[6]!.description}"`]),
+      ...unchangedExcept(b, a, [6]),
+    ],
+    solution: [["describe", "6", "Covers Linux and macOS."]],
+  },
+  {
+    id: "rename-by-title",
+    level: "easy",
+    holdout: true,
+    prompt: 'Rename "Dates show in UTC instead of local time" to "Show dates in the local time zone".',
+    check: (b, a) => [
+      ...(sameText(a.cards[7]!.title, "Show dates in the local time zone") ? [] : [`#7 is titled "${a.cards[7]!.title}"`]),
+      ...unchangedExcept(b, a, [7]),
+    ],
+    solution: [["rename", "7", "Show dates in the local time zone"]],
+  },
+  {
+    id: "docs-to-backlog",
+    level: "medium",
+    holdout: true,
+    prompt: "Move every docs card in Todo to the bottom of Backlog.",
+    check: (b, a) => [...order(a, "backlog", [1, 2, 3, 4, 6]), ...unchangedExcept(b, a, [6])],
+    solution: [["move", "6", "backlog"]],
+  },
+  {
+    id: "drop-performance",
+    level: "large",
+    holdout: true,
+    board: "large",
+    prompt: "Remove the label performance from every card that has it, and keep their other labels.",
+    check: (b, a) => {
+      const perf = onBoard(b).filter((c) => c.labels.includes("performance"));
+      return [
+        ...perf.flatMap((c) => labels(a, c.id, c.labels.filter((l) => l !== "performance"))),
+        ...unchangedExcept(b, a, perf.map((c) => c.id)),
+      ];
+    },
+    solution: [["label", "20", "bug"], ["label", "37"]],
+  },
+  {
+    id: "ana-done",
+    level: "large",
+    holdout: true,
+    board: "large",
+    prompt: "Move every card in In progress that is assigned to Ana to Done. Assignees are in the descriptions.",
+    check: (b, a) => {
+      const ana = b.columns.doing.filter((id) => field(b.cards[id]!, "Assignee") === "Ana");
+      return [...inColumn(a, ana, "done"), ...unchangedExcept(b, a, ana)];
+    },
+    solution: [["move", "27", "done"], ["move", "28", "done"]],
   },
 ];
 

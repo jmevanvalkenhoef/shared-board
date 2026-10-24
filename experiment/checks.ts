@@ -29,7 +29,7 @@ export function added(before: Board, after: Board): Card[] {
 
 /** One new card with this title (ignoring case, quotes and a final full stop), in `column`, with exactly `labelList`. */
 export function addedCard(before: Board, after: Board, title: string, column: ColumnId, labelList: string[]): string[] {
-  const card = added(before, after).find((c) => sameTitle(c.title, title));
+  const card = added(before, after).find((c) => sameText(c.title, title));
   if (!card) return [`no new card "${title}"`];
   return [...inColumn(after, [card.id], column), ...labels(after, card.id, labelList)];
 }
@@ -60,7 +60,8 @@ function same(a: Card, b: Card): boolean {
   );
 }
 
-function sameTitle(a: string, b: string): boolean {
+/** Equal, ignoring case, surrounding quotes and a final full stop. */
+export function sameText(a: string, b: string): boolean {
   const norm = (s: string) => s.trim().replace(/^["']|["']$/g, "").replace(/\.$/, "").toLowerCase();
   return norm(a) === norm(b);
 }

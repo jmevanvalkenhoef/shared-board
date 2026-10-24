@@ -1,6 +1,7 @@
 // Runs a batch of graded runs in parallel, with a token limit.
 //   node experiment/batch.ts --design full [--reps 1] [--concurrency 6] [--max-tokens 6000000] [--dry-run]
-// "full" runs every task with every model and CLI variant, `reps` times.
+// "full" runs every task with every model and CLI variant, `reps` times;
+// "holdout" does the same for the held-out tasks of the prediction test.
 // "pilot" (the first, smaller round) gave every task two runs with opposite
 // model and opposite CLI style, on two models and two variants.
 
@@ -90,7 +91,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const tasks = loadTasks(ROOT);
   const designs: Record<string, () => RunSpec[]> = {
     pilot: () => pilot(tasks.filter((t) => t.level !== "large")),
-    full: () => full(tasks, Number(values.reps)),
+    full: () => full(tasks.filter((t) => !t.holdout), Number(values.reps)),
+    holdout: () => full(tasks.filter((t) => t.holdout), Number(values.reps)),
   };
   const design = designs[values.design!];
   if (!design) throw new Error(`unknown design "${values.design}"`);
