@@ -102,7 +102,8 @@ board CLI (agent) ───────────┘
 1. **Board.** Event log, server, CLI, live web page. Done when a card moved
    from the terminal moves on the page.
 2. **Harness.** Seeded reset, one headless agent run, grader, run log. Done
-   when one task runs end to end and is graded.
+   when one task runs end to end and is graded. *Done: first run passed with
+   Haiku in 9 s and about 12k tokens; a non-board command is refused.*
 3. **Variants and tasks.** Both CLI styles, about 12 tasks with checks. Pilot
    of about 20 runs to measure tokens; calibrate the budget with Joost.
 4. **Experiment.** Adaptive batches, each under 30 minutes, each approved.

@@ -62,6 +62,26 @@ the server strips the types from TypeScript files as it serves them.
 
 `npm run check` type-checks everything.
 
+## The experiment harness
+
+```sh
+node experiment/run.ts --task bugs-to-doing --model haiku --style plain
+```
+
+One run starts a fresh board in memory on a free port, gives the task to
+Claude Code running headless, and grades the final board against the task's
+checks. The agent gets only the Bash tool, limited to the `board` command;
+anything else is refused. Each run appends a line to
+`experiment/results/runs.jsonl` (success, problems, tool calls, errors, tokens,
+time) and keeps its transcript in `experiment/results/transcripts/`.
+
+```
+experiment/sandbox.ts   a throwaway board server for one run
+experiment/agent.ts     starts the agent and reads its transcript
+experiment/tasks.ts     tasks and their checks
+experiment/run.ts       one graded run
+```
+
 ## Related work
 
 [Headway](https://github.com/damus-io/notedeck/tree/master/crates/notedeck_headway)
