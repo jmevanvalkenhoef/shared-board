@@ -1,20 +1,28 @@
 // The board CLI: the agent's way in. Every change it makes is recorded as the
 // agent's, unless BOARD_ACTOR says otherwise.
-//   BOARD_URL (http://localhost:4321)  BOARD_ACTOR (agent)  BOARD_STYLE (plain | agent)
+//   BOARD_URL (http://localhost:4321)  BOARD_ACTOR (agent)  BOARD_STYLE (plain | agent | forgiving)
 // Exit codes: 0 ok, 1 the board refused the command, 2 usage error, 3 server unreachable.
 
 import { parseArgs } from "node:util";
-import { isColumn } from "../domain/board.ts";
 import type { Actor, ColumnId } from "../domain/board.ts";
 import type { Command } from "../domain/commands.ts";
 import { BoardClient, RequestFailed, Unreachable } from "./client.ts";
+import { forgiving, strict } from "./dialect.ts";
+import type { Dialect } from "./dialect.ts";
 import type { Style } from "./style.ts";
 import { agent } from "./styles/agent.ts";
 import { plain } from "./styles/plain.ts";
 
 class UsageError extends Error {}
 
-const style: Style = process.env.BOARD_STYLE === "agent" ? agent : plain;
+/** The CLI variants of the experiment: what the CLI prints, and what it accepts. */
+const VARIANTS: Record<string, { style: Style; dialect: Dialect }> = {
+  plain: { style: plain, dialect: strict },
+  agent: { style: agent, dialect: strict },
+  forgiving: { style: agent, dialect: forgiving },
+};
+
+const { style, dialect } = VARIANTS[process.env.BOARD_STYLE ?? "plain"] ?? VARIANTS.plain!;
 
 async function main(argv: string[]): Promise<number> {
   const client = new BoardClient(process.env.BOARD_URL ?? "http://localhost:4321", actorFromEnv());
@@ -29,9 +37,10 @@ async function main(argv: string[]): Promise<number> {
         help: { type: "boolean", short: "h" },
       },
     });
-    const [name, ...args] = positionals;
+    const [first, ...rest] = positionals;
 
-    if (!name || name === "help" || values.help) return print(style.usage());
+    if (!first || first === "help" || values.help) return print(style.usage());
+    const { name, args } = dialect.command(first, rest);
 
     if (name === "show") {
       const column = args[0] === undefined ? undefined : columnArg(args[0]);
@@ -94,8 +103,9 @@ function idArg(value: string | undefined): number {
 }
 
 function columnArg(value: string | undefined): ColumnId {
-  if (!isColumn(value)) throw new UsageError(`unknown column "${value ?? ""}"`);
-  return value;
+  const column = dialect.column(value);
+  if (!column) throw new UsageError(`unknown column "${value ?? ""}"`);
+  return column;
 }
 
 function positionArg(value: string): number {

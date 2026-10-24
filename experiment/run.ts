@@ -20,12 +20,15 @@ export interface RunSpec {
   task: Task;
   model: string;
   style: string;
+  batch?: string;
 }
 
 export interface RunRecord extends Omit<AgentResult, "reply"> {
   id: string;
   at: string;
+  batch: string;
   task: string;
+  requestedModel: string;
   style: string;
   success: boolean;
   problems: string[];
@@ -33,7 +36,7 @@ export interface RunRecord extends Omit<AgentResult, "reply"> {
   reply: string;
 }
 
-export async function run({ task, model, style }: RunSpec): Promise<RunRecord> {
+export async function run({ task, model, style, batch = "manual" }: RunSpec): Promise<RunRecord> {
   const id = `${new Date().toISOString().replace(/[:.]/g, "-")}-${task.id}-${model}-${style}`;
   const sandbox = await startSandbox(ROOT, task.seed);
   const cwd = mkdtempSync(join(tmpdir(), "board-run-"));
@@ -51,7 +54,7 @@ export async function run({ task, model, style }: RunSpec): Promise<RunRecord> {
         BOARD_ACTOR: "agent",
         BOARD_STYLE: style,
       },
-      timeoutMs: 180_000,
+      timeoutMs: 300_000,
       maxBudgetUsd: 1,
       transcriptPath: join(RESULTS, "transcripts", `${id}.jsonl`),
     });
@@ -61,7 +64,9 @@ export async function run({ task, model, style }: RunSpec): Promise<RunRecord> {
     const record: RunRecord = {
       id,
       at: new Date().toISOString(),
+      batch,
       task: task.id,
+      requestedModel: model,
       style,
       ...agent,
       success: problems.length === 0,

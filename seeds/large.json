@@ -1,0 +1,805 @@
+[
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Export the board as Markdown",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Crash when a card title is empty",
+      "column": "backlog",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Keyboard shortcut to add a card",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Avatar images are blurry on retina screens",
+      "column": "backlog",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Dark mode for the print view",
+      "column": "backlog",
+      "labels": [
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Session expires while typing a comment",
+      "column": "backlog",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "WIP: Audit log for admin actions",
+      "column": "backlog",
+      "labels": [
+        "feature",
+        "security"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Search cards by title",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Typo in the welcome email",
+      "column": "backlog",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Translate the settings page to Dutch",
+      "column": "backlog",
+      "labels": [
+        "i18n"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Write the install guide",
+      "column": "backlog",
+      "labels": [
+        "docs"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Undo for archived cards",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Footer links open in the same tab",
+      "column": "backlog",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Bulk move cards between columns",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Login form accepts an empty password",
+      "column": "todo",
+      "labels": [
+        "bug",
+        "security"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Dates show in UTC instead of local time",
+      "column": "todo",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Write the install guide",
+      "column": "todo",
+      "labels": [
+        "docs"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Rate-limit the public API",
+      "column": "todo",
+      "labels": [
+        "feature",
+        "security"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "WIP: Email digest of board activity",
+      "column": "todo",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Login page loads slowly on mobile",
+      "column": "todo",
+      "labels": [
+        "bug",
+        "performance"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Card colours ignore the theme",
+      "column": "todo",
+      "labels": [
+        "bug",
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Password reset link never expires",
+      "column": "todo",
+      "labels": [
+        "bug",
+        "security"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Add a changelog page",
+      "column": "todo",
+      "labels": [
+        "docs"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Search cards by title",
+      "column": "todo",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Add request logging",
+      "column": "doing",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "WIP: Migrate the database to SQLite",
+      "column": "doing",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Upgrade the web framework",
+      "column": "doing",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Webhooks for card changes",
+      "column": "doing",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Mobile layout for the board",
+      "column": "doing",
+      "labels": [
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "WIP: Sign in with a passkey",
+      "column": "doing",
+      "labels": [
+        "feature",
+        "security"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Set up continuous integration",
+      "column": "done",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Add a health-check endpoint",
+      "column": "done",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Fix login redirect loop",
+      "column": "done",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Card titles overflow on narrow screens",
+      "column": "done",
+      "labels": [
+        "bug",
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Export the board as Markdown",
+      "column": "done",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Show who changed a card",
+      "column": "done",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Speed up the board query",
+      "column": "done",
+      "labels": [
+        "performance"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Design tokens for colours",
+      "column": "done",
+      "labels": [
+        "design"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Remove the old login page",
+      "column": "done",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Store passkeys per device",
+      "column": "done",
+      "labels": [
+        "feature",
+        "security"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Typo in the welcome email",
+      "column": "done",
+      "labels": [
+        "bug"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Automatic backups",
+      "column": "done",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Prototype a native app",
+      "column": "backlog",
+      "labels": [
+        "feature"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "create",
+      "title": "Old onboarding flow",
+      "column": "backlog",
+      "labels": [
+        "chore"
+      ]
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 1,
+      "description": "Priority: low\nAssignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 3,
+      "description": "Priority: medium\nAssignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 4,
+      "description": "Priority: low\nAssignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 7,
+      "description": "Priority: medium\nAssignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 8,
+      "description": "Priority: medium"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 10,
+      "description": "Priority: low\nAssignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 11,
+      "description": "Priority: low"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 12,
+      "description": "Priority: low\nAssignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 14,
+      "description": "Priority: medium"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 15,
+      "description": "Priority: high\nAssignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 16,
+      "description": "Priority: medium\nAssignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 17,
+      "description": "Priority: low\nAssignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 18,
+      "description": "Priority: high"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 19,
+      "description": "Priority: low\nAssignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 20,
+      "description": "Priority: medium\nAssignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 21,
+      "description": "Priority: low"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 22,
+      "description": "Priority: high\nAssignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 23,
+      "description": "Priority: medium"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 24,
+      "description": "Priority: medium\nAssignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 25,
+      "description": "Priority: high\nAssignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 26,
+      "description": "Priority: high\nAssignee: Sam\nBlocked by #27"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 27,
+      "description": "Priority: medium\nAssignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 28,
+      "description": "Priority: medium\nAssignee: Ana\nBlocked by #25"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 29,
+      "description": "Priority: medium\nAssignee: Lee\nBlocked by #38"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 30,
+      "description": "Priority: high\nAssignee: Sam\nBlocked by #40"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 31,
+      "description": "Assignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 32,
+      "description": "Assignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 33,
+      "description": "Assignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 34,
+      "description": "Assignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 35,
+      "description": "Assignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 36,
+      "description": "Assignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 37,
+      "description": "Assignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 38,
+      "description": "Assignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 40,
+      "description": "Assignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 41,
+      "description": "Assignee: Lee"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 42,
+      "description": "Assignee: Ana"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "archive",
+      "card": 43
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "describe",
+      "card": 44,
+      "description": "Assignee: Sam"
+    }
+  },
+  {
+    "actor": "human",
+    "command": {
+      "type": "archive",
+      "card": 44
+    }
+  }
+]
