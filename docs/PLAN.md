@@ -118,8 +118,8 @@ board CLI (agent) ───────────┘
    experiment/writeup/.*
 6. **Prediction test.** Saved predictions for new tasks, then the runs.
    *Done: 90 runs on five held-out tasks, all inside the predictions.*
-7. **Demo and site.** Short video of a person and the agent on the board;
-   case-study page and card on the portfolio site.
+7. **Site.** Case-study page and card on the portfolio site. *Done; the
+   case study explains how the board works, so no video.*
 
 ## Related work
 
