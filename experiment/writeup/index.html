@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLI Design for AI Agents</title>
+  <meta name="description" content="Three designs of the same command-line tool, three Claude models and 18 tasks on a kanban board: what the design changes about an AI agent's work, measured with a Bayesian model.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extra.css">
+</head>
+<body>
+<button id="theme" type="button" aria-label="Toggle light or dark theme">theme</button>
+<main>
+  <div class="kicker">Shared Board · write-up 01</div>
+  <h1>How CLI design changes an AI agent's work</h1>
+  <p class="lede">I gave Claude models a kanban board they could only use through a command-line tool, and measured what three designs of that tool change. The agents almost always finished the task. How many wrong commands they typed on the way depended on the design, and so did the cost: the most helpful output made the strongest model more expensive.</p>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="label">Wrong commands, forgiving CLI</div>
+      <div class="value"><span data-fill="err-f-all">–</span> × plain</div>
+      <div class="note">90% interval <span data-fill="err-f-all-lo">–</span> to <span data-fill="err-f-all-hi">–</span></div>
+    </div>
+    <div class="tile">
+      <div class="label">Sonnet's cost, agent-friendly CLI</div>
+      <div class="value"><span data-fill="cost-a-sonnet-pct">–</span></div>
+      <div class="note">compared with plain; 90% interval <span data-fill="cost-a-sonnet-lo">–</span> to <span data-fill="cost-a-sonnet-hi">–</span></div>
+    </div>
+    <div class="tile">
+      <div class="label">Cost per 1000 typical tasks</div>
+      <div class="value">$<span data-fill="cost-haiku-plain">–</span></div>
+      <div class="note">Haiku 5.5, against $<span data-fill="cost-sonnet-plain">–</span> for Sonnet 5.5</div>
+    </div>
+  </div>
+
+  <h2>The setup</h2>
+  <p>The board is a small web app. People use it in the browser; an agent uses it through a command-line tool called <code>board</code>. Both talk to the same server, so when the agent moves a card, the page shows it moving. Cards the agent changed last get an orange edge.</p>
+  <figure class="shot">
+    <img src="board.webp" width="1300" height="520" alt="The board in the browser: four columns (Backlog, Todo, In progress, Done) with cards. Four cards have an orange edge and the word agent, because the agent moved or labelled them from the command line.">
+    <figcaption>The demo board after four changes made through the CLI.</figcaption>
+  </figure>
+  <p>One run of the experiment starts a fresh board, gives one task to Claude Code running headless, and waits until the agent stops. The agent has one tool, Bash, and may only run <code>board</code>; anything else is refused. A script then compares the final board with the board the task asks for, so a person never judges a run. Every run records whether it succeeded, the agent's tool calls, how many of them failed, and the tokens used.</p>
+  <p>Three Claude models took part: Haiku 4.5, the oldest and smallest still available; Haiku 5.5; and Sonnet 5.5. The idea of a board with a GUI for people and a CLI for agents is not mine: William Casarin's <a href="https://github.com/damus-io/notedeck/tree/master/crates/notedeck_headway">Headway</a> works the same way. What I wanted to know is how the design of the agent's side changes its work.</p>
+
+  <h2>Three versions of one CLI</h2>
+  <p>All three versions have the same commands. They differ in what they print and in what they accept. Here is the same mistake in each: the task is to add a label to card 5, and the agent overlooks that <code>label</code> replaces all labels.</p>
+<pre><code>plain                      agent-friendly and forgiving
+$ board label 5 urgent     $ board label 5 urgent
+ok                         labels of #5 "Login form accepts an empty password" are now: urgent</code></pre>
+  <dl class="model">
+    <dt>Plain</dt>
+    <dd>A terse, ordinary CLI: short tables, <code>ok</code> after a change, bare errors such as <code>error: no-such-card</code>, and a help text that lists the commands.</dd>
+    <dt>Agent-friendly</dt>
+    <dd>The same commands with more words around them. The help gives exact rules and examples (positions count from 1, <code>label</code> replaces all labels, <code>doing</code> is the id of In progress), a change reports what it did, and an error says what to do next.</dd>
+    <dt>Forgiving</dt>
+    <dd>Agent-friendly output, and it also accepts what agents guessed in the pilot: <code>board list</code> for <code>board show</code>, <code>board show 9</code> for card 9, and column names such as "in progress". Because I designed it from the pilot's mistakes, part of its advantage is built in. The prediction test at the end is there to check how much of it carries over to tasks it was not designed for.</dd>
+  </dl>
+
+  <h2>The tasks</h2>
+  <p>There are <span data-fill="main-tasks">–</span> tasks on two boards. Twelve use a board of 15 cards, from easy ("move every bug in Todo to In progress") to tasks with a trap: put a card in second place, add a label while keeping the others, or move card #42, which does not exist, so the right answer is to change nothing. Six use a board of 44 cards and need a lot of reading, because the answer is in the descriptions: sort Todo by the priority written in each card, label every card assigned to Sam, or move blocked cards back to Todo when their blocker is not done.</p>
+  <p>Every task has a reference solution. A test runs each solution through the real CLI and checks that it passes, and that doing nothing fails. That caught one mistake in my own checks before any agent ran.</p>
+
+  <h2>How the experiment changed on the way</h2>
+  <p>The first plan measured success. In a pilot of <span data-fill="pilot-runs">–</span> runs on the twelve small tasks, all <span data-fill="pilot-passed">–</span> succeeded, on both models and both CLI versions I had then. The agents read the help first and looked before they acted, so the traps never caught them. What the pilot did show was wrong commands on the way: <code>board show 9</code> to see card 9, and <code>board list</code>, which does not exist. Success could not tell the designs apart, but the number of detours could, and detours cost tokens. So the experiment moved to three outcomes: wrong commands, tool calls and tokens, with success kept as a fourth.</p>
+  <p>The first full round had a flaw of mine. Some agents wrote shell loops (<code>for i in 17 24 35 41; do board archive $i; done</code>). The permission rule allows commands that start with <code>board</code>, so it refused the loops, and <span data-fill="round1-failed">–</span> of <span data-fill="round1-runs">–</span> runs failed although the agent had found exactly the right cards. I added one sentence to the agent's instructions, the same for every version: loops are refused, run one command at a time or chain them with <code>&amp;&amp;</code>. Because that changes the instructions, I left that round out of the analysis and ran the experiment again.</p>
+  <p>The main run: every task with every model and every CLI, twice, <span data-fill="main-runs">–</span> runs in 16 minutes and <span data-fill="main-tokens">–</span> million tokens, most of them cached. <span data-fill="main-passed">–</span> succeeded. Both failures came from Haiku 4.5, which missed a card in one task and moved one card too many in another.</p>
+
+  <h2>What went wrong on the way</h2>
+  <p>A wrong command is a tool call that failed: the CLI refused it, or the permission rule did. Most of them are guesses at commands that do not exist.</p>
+  <figure>
+    <h4>Wrong commands in the main run, by kind</h4>
+    <p class="sub">Totals over <span data-fill="cell-runs-cli">–</span> runs per CLI version (three models, 18 tasks, twice).</p>
+    <div id="table-kinds"></div>
+    <figcaption>"A card that does not exist" is the missing-card task doing its job: every run of it tries card #42 once.</figcaption>
+  </figure>
+  <p>Two rows deserve a closer look. <code>--position 0</code> only happened with the plain CLI. Its help says <code>--position N</code> and nothing more, so agents guessed that counting starts at 0; the other versions say it starts at 1, and nobody made that mistake there. That effect is not built into the design.</p>
+  <p>The <code>#id</code> row is a mistake in my own help text. The agent-friendly help says card ids can be written as <code>12</code> or <code>#12</code>. In a shell, <code>#</code> starts a comment, so <code>board card #12</code> reaches the CLI as <code>board card</code>. The two versions that show that sentence account for most of these errors. Advice that is correct for the program can be wrong for the shell the agent types it into.</p>
+
+  <h2>The model</h2>
+  <p>The raw counts point one way, but the tasks differ a lot. Sorting Todo by priority takes twenty commands; adding a card takes two. An average over all runs would mostly measure the hard tasks. So each outcome gets a hierarchical model that estimates task difficulty separately and measures the CLI's effect within tasks.</p>
+  <p>For every run, the model computes one number, η, on a scale where effects can be added:</p>
+<p class="formula">η = θ[model, CLI] + u[task] + w[task, CLI]</p>
+  <dl class="model">
+    <dt>θ[model, CLI]</dt>
+    <dd>The level for one model with one CLI version on a typical task. Nine values, one per combination, each with the same wide prior.</dd>
+    <dt>u[task]</dt>
+    <dd>How much harder or easier a task is than the typical one. The tasks share a spread, σ<sub>task</sub>, which the model estimates too, so the tasks inform each other.</dd>
+    <dt>w[task, CLI]</dt>
+    <dd>How far a CLI's effect on one task differs from its effect on the typical task, with its own spread. The missing-card task, for example, produces its error under every version.</dd>
+  </dl>
+  <p>How η becomes a prediction depends on the outcome. For counts (wrong commands, tool calls), exp(η) is the expected count, and a negative binomial distribution adds the run-to-run variation. For tokens and list-price cost, exp(η) is the typical value and a lognormal spread, separate per model, sits around it. For success, η is the log-odds. A CLI's effect is then exp(θ[model, forgiving] − θ[model, plain]): the task terms are the same for both versions and drop out. A value of 0.3 means 70% fewer.</p>
+  <p>All five models were fitted with PyMC: 4 chains of 1000 draws each, no divergences except one in the success model, and R̂ at most <span data-fill="rhat">–</span>.</p>
+
+  <h2>Results</h2>
+  <figure>
+    <h4>What each CLI version changes, compared with plain</h4>
+    <p class="sub">Ratio to the plain CLI on a typical task; dots are posterior means, lines 90% intervals. Left of the line is less.</p>
+    <div class="keys">
+      <span><i class="key-dot agent"></i>agent-friendly</span>
+      <span><i class="key-dot forgiving"></i>forgiving</span>
+      <span><i class="key-line"></i>same as plain</span>
+    </div>
+    <div class="chart" id="chart-effects"></div>
+    <figcaption>"All models" averages the log-ratio over the three models.</figcaption>
+  </figure>
+  <p><strong>Wrong commands.</strong> The forgiving CLI brings them down to <span data-fill="err-f-all">–</span> times plain (90% interval <span data-fill="err-f-all-lo">–</span> to <span data-fill="err-f-all-hi">–</span>), and it does so for every model; the probability that it lowers them is at least <span data-fill="err-f-pmin">–</span> for each. The agent-friendly CLI alone barely changes the count (<span data-fill="err-a-all">–</span>, interval <span data-fill="err-a-all-lo">–</span> to <span data-fill="err-a-all-hi">–</span>). Clearer help text does little against guessed commands, while accepting the guesses removes most of them.</p>
+  <p><strong>Tool calls.</strong> Both richer versions save calls, <span data-fill="calls-a-all-pct">–</span> and <span data-fill="calls-f-all-pct">–</span> over all models, most of all for Haiku 4.5. The help text answers questions the agent would otherwise answer by trying.</p>
+  <p><strong>Tokens and cost.</strong> Here the models part ways. For Haiku 4.5 the richer versions use fewer tokens (<span data-fill="tok-f-h45-pct">–</span> with forgiving). For Sonnet they cost more: <span data-fill="cost-a-sonnet-pct">–</span> with agent-friendly and <span data-fill="cost-f-sonnet-pct">–</span> with forgiving, at list price. Sonnet already finishes a typical task in about three commands, so there is little to save, and the longer help and confirmations stay in its context for the rest of the run. More helpful output pays off for a weak model and is overhead for a strong one.</p>
+  <figure>
+    <h4>Cost per 1000 typical tasks</h4>
+    <p class="sub">Claude Code's list-price estimate; posterior mean and 90% interval. Logarithmic axis.</p>
+    <div class="chart" id="chart-cost"></div>
+  </figure>
+  <p>The choice of model matters far more than the CLI. Haiku 5.5 does a typical task for about a tenth of Sonnet's cost, and the old Haiku 4.5 is the most expensive of the three: it needs more turns and more tokens. Success was high everywhere: no combination has a lower 90% bound below <span data-fill="success-min">–</span>, and with two failures in 324 runs the model cannot rank them.</p>
+
+  <h2>Task difficulty</h2>
+  <figure>
+    <h4>Tool calls per task, compared with a typical task</h4>
+    <p class="sub">exp(u[task]) from the tool-call model, with 90% intervals. Logarithmic axis.</p>
+    <div class="chart" id="chart-tasks"></div>
+  </figure>
+  <p>The spread between tasks is far larger than any CLI effect. Labelling Sam's cards takes almost four times the tool calls of a typical task, and adding a card half of them. Without the task term, a few extra runs of the hardest tasks would weigh more than the design does.</p>
+
+  <h2>A prediction, then a test</h2>
+  <p>The forgiving CLI was designed from the pilot's mistakes on the same kind of tasks. To see whether its effect holds elsewhere, I wrote five new tasks after the main run: write a description, rename a card by its title, move a card to the bottom of a column, remove a label everywhere, and move one person's cards. Before running them, I let the model predict the round: each new task gets a difficulty drawn from the fitted spread, and every run is simulated. The predictions were written at commit <code data-fill="pred-commit">–</code> and committed before the first held-out run, so the history shows which came first.</p>
+  <figure>
+    <h4>Predicted, then measured</h4>
+    <p class="sub">Held-out round: 5 tasks, every model and CLI, twice; 90 runs. Bars are the 90% prediction, ticks its median, rings what happened.</p>
+    <div class="keys">
+      <span><i class="key-band"></i>predicted (90%)</span>
+      <span><i class="key-tick"></i>predicted median</span>
+      <span><i class="key-obs"></i>observed</span>
+    </div>
+    <div class="chart" id="chart-prediction"></div>
+  </figure>
+  <p>All <span data-fill="ho-runs">–</span> held-out runs succeeded, and every outcome landed inside its prediction. The token ratios are the stronger part: the model expected the forgiving CLI to save Haiku 4.5 about <span data-fill="ho-h45-pred">–</span> of its tokens, and the measured saving was <span data-fill="ho-h45-obs">–</span>. The wrong commands are a weak test. The new tasks produced few of them (<span data-fill="ho-err-total">–</span> in 90 runs), the predictions were wide because the model cannot know how hard new tasks are, and the counts fell at the low end. They also brought guesses the forgiving CLI does not accept, <code>board search</code> and <code>board set</code>, which happened to come up under the agent-friendly version. A forgiving CLI therefore needs updating whenever agents start guessing something new.</p>
+
+  <h2>Limits</h2>
+  <ul>
+    <li><strong>Claude only, at one moment.</strong> Three Claude models through Claude Code, in October 2026. Other model families may guess differently.</li>
+    <li><strong>One board and one CLI.</strong> Four columns and eight commands. A larger tool, with more to read, may change the balance between helpful output and its cost.</li>
+    <li><strong>The forgiving effect is partly built in.</strong> It accepts guesses seen in the pilot. The held-out round agrees with the model but is too small to settle how much of the effect carries over.</li>
+    <li><strong>Success sits at the ceiling.</strong> Every model finished nearly every task, so these tasks separate the models on how they work and say little about whether they finish.</li>
+    <li><strong>Cost is Claude Code's list-price estimate.</strong> A subscription counts usage differently.</li>
+    <li><strong>The token model's tail is too light</strong> for Haiku 4.5 with the plain CLI: its observed total is just above the predicted range, because a few runs took much longer than a lognormal expects.</li>
+  </ul>
+
+  <h2>Reproduce it</h2>
+<pre><code>npm install
+node experiment/test-tasks.ts                                 # every task's checks, no agent
+node experiment/batch.ts --design full --reps 2               # the main run (Claude Code must be logged in)
+uv run experiment/analysis/fit.py --batch &lt;batch&gt;            # the five models
+uv run experiment/analysis/predict.py                         # predictions for the held-out round
+node experiment/batch.ts --design holdout --reps 2
+python3 experiment/analysis/writeup_data.py                   # data.json for this page</code></pre>
+  <p class="dim">Runs, transcripts and the posterior summaries are in <code>experiment/results</code> and <code>experiment/analysis</code>. Claude Code <span data-fill="cc-version">2.1.310</span>.</p>
+</main>
+<script src="vendor/d3.min.js"></script>
+<script src="charts.js"></script>
+</body>
+</html>

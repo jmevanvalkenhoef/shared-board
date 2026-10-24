@@ -1,0 +1,40 @@
+/* Additions to the FIPS Lab write-up stylesheet. The two CLI versions use the
+   validated pair: agent-friendly = series (blue), forgiving = accent (orange). */
+
+:root { --agent: var(--series); --forgiving: var(--stuck); }
+
+.shot { border-top: 0; padding: 0; }
+.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
+
+.mark line { stroke-width: 2; stroke-linecap: round; }
+.mark circle { stroke: var(--surface); stroke-width: 2; }
+.mark.agent line { stroke: var(--agent); }
+.mark.agent circle { fill: var(--agent); }
+.mark.forgiving line { stroke: var(--forgiving); }
+.mark.forgiving circle { fill: var(--forgiving); }
+.mark.single line { stroke: var(--series); }
+.mark.single circle { fill: var(--series); }
+.band { fill: var(--series); fill-opacity: 0.22; }
+.tick-mid { stroke: var(--series); stroke-width: 2; }
+.obs { fill: var(--surface); stroke: var(--text); stroke-width: 2; }
+.panel-title { fill: var(--text); font: 600 13px var(--sans); }
+.group-label { fill: var(--text-2); font: 600 12px var(--sans); }
+.row-label { fill: var(--text-2); font: 12px var(--sans); }
+.value-label { fill: var(--muted); font: 11px var(--sans); font-variant-numeric: tabular-nums; }
+
+.key-dot.agent { background: var(--agent); }
+.key-dot.forgiving { background: var(--forgiving); }
+.key-band { width: 16px; height: 10px; background: var(--series); opacity: 0.3; }
+.key-tick { width: 2px; height: 12px; background: var(--series); }
+.key-obs { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--text); }
+
+.kinds { font-size: 14px; }
+.kinds td:first-child { text-align: left; }
+.kinds td.n { width: 22%; }
+.kinds .bar { display: inline-block; height: 8px; margin-left: 6px; vertical-align: 0; background: var(--series); opacity: 0.55; }
+.kinds .zero { color: var(--muted); }
+
+dl.model { margin: 16px 0; }
+dl.model dt { font-weight: 600; margin-top: 12px; }
+dl.model dd { margin: 2px 0 0; color: var(--text-2); }
+.formula { font: italic 22px/1.4 var(--serif); text-align: center; margin: 20px 0; }

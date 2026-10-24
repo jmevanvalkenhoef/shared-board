@@ -114,8 +114,10 @@ board CLI (agent) ───────────┘
    calibrate the budget with Joost.
 4. **Experiment.** Adaptive batches, each under 30 minutes, each approved.
 5. **Model and write-up.** PyMC model, interactive write-up in the FIPS Lab
-   style (same theme), with data tables and the model's limits.
+   style (same theme), with data tables and the model's limits. *Done:
+   experiment/writeup/.*
 6. **Prediction test.** Saved predictions for new tasks, then the runs.
+   *Done: 90 runs on five held-out tasks, all inside the predictions.*
 7. **Demo and site.** Short video of a person and the agent on the board;
    case-study page and card on the portfolio site.
 

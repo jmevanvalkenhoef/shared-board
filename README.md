@@ -82,6 +82,14 @@ experiment/tasks.ts     tasks and their checks
 experiment/run.ts       one graded run
 ```
 
+## Write-up
+
+[experiment/writeup/](experiment/writeup/): how three designs of the CLI
+change the work of three Claude models, with a Bayesian model of 324 runs and a
+prediction test on 90 more. Serve that folder (`python3 -m http.server`) and
+open it. To rebuild its data: `uv run experiment/analysis/fit.py`, then
+`python3 experiment/analysis/writeup_data.py`.
+
 ## Related work
 
 [Headway](https://github.com/damus-io/notedeck/tree/master/crates/notedeck_headway)
