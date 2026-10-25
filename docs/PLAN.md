@@ -1,6 +1,11 @@
 # Shared Board: plan
 
-Working title. A kanban board that a person and an AI agent use at the same
+> The plan as written before the experiment, kept as the record. What was run
+> and what came out is in the write-up, `experiment/writeup/`; the main
+> change is that the outcome moved from success to wrong commands, tool calls
+> and tokens after the pilot.
+
+A kanban board that a person and an AI agent use at the same
 time: the person through a web page, the agent through a command-line tool.
 Both talk to the same small backend, so when the agent moves a card, you see
 it move.

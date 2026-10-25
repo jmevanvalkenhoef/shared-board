@@ -4,8 +4,9 @@ A kanban board that a person and an AI agent use at the same time. The person
 works in a web page; the agent uses a command-line tool. Both go through the
 same small server, so when the agent moves a card, the page shows it moving.
 
-The board is the setting for an experiment on how CLI design affects an
-agent's success. See [docs/PLAN.md](docs/PLAN.md).
+The board is the setting for an experiment on how CLI design changes an
+agent's work. The results are in the [write-up](experiment/writeup/); the
+original plan is in [docs/PLAN.md](docs/PLAN.md).
 
 ## Run it
 
@@ -89,6 +90,13 @@ change the work of three Claude models, with a Bayesian model of 324 runs and a
 prediction test on 90 more. Serve that folder (`python3 -m http.server`) and
 open it. To rebuild its data: `uv run experiment/analysis/fit.py`, then
 `python3 experiment/analysis/writeup_data.py`.
+
+## How it was built
+
+With Claude Code as a pair programmer. The questions, the design decisions and
+the review of every change are mine; commits it helped with carry a
+`Co-Authored-By` line. The agents in the experiment are Claude models too,
+run through Claude Code in headless mode.
 
 ## Related work
 
